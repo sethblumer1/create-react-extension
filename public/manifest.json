@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Writesonic",
-  "description": "Writesonic Chrome Extension",
+  "name": "Threadnote",
+  "description": "Threadnote Chrome Extension",
   "version": "1.0.0",
   "content_scripts": [
     {
@@ -11,6 +11,12 @@
       "all_frames": true
     }
   ],
+  "permissions": [
+    "storage"
+  ],
+  "background": {
+    "service_worker": "./background.global.js"
+  },
   "web_accessible_resources": [
     {
       "resources": ["/react/index.js", "/react/vendor.js", "/react/index.css"],

@@ -11,7 +11,7 @@ const Main = () => {
     <React.StrictMode>
       {/* <div style={{ position: "fixed", top: "20%", right: "0px", maxWidth: "100px" }}> */}
       <Frame
-        style={{ position: "fixed", top: "15%", right: "-20px", maxWidth: "82.5px", maxHeight: "min-content", border: "none", padding: "10px" }}
+        style={{ position: "fixed", top: "15%", right: open ? "0px" : "-20px", maxWidth: open ? "100%" : "82.5px", minHeight: open ? "400px" : "max-content", border: "none", padding: "10px", zIndex: 999 }}
         scrolling='no'
         head={[
           <link
