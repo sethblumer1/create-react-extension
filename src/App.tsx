@@ -12,7 +12,7 @@ interface SessionResponse {
 }
 
 const App = ({ open, setOpen }: AppProps) => {
-  const toggleOpen = () => setOpen(!open);
+  const toggleOpen = () => { setOpen(!open); console.log('toggled') };
   const [session, setSession] = useState(null);
 
   const getSession = async (): Promise<SessionResponse> => {
@@ -29,18 +29,19 @@ const App = ({ open, setOpen }: AppProps) => {
   };
 
   useEffect(() => {
-    getSession()
-      .then(response => {
-        setSession(response.data); // Assuming response.data contains session info
-      })
-      .catch(error => {
-        console.error('Error in getting session:', error);
-      });
+    chrome.runtime.sendMessage({ action: 'getSession' })
+    // getSession()
+    //   .then(response => {
+    //     setSession(response.data); // Assuming response.data contains session info
+    //   })
+    //   .catch(error => {
+    //     console.error('Error in getting session:', error);
+    //   });
   }, [])
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  // }, [session])
+  }, [session])
 
 
   if (!open) {

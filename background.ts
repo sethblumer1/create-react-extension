@@ -18,12 +18,12 @@ async function handleMessage({ action, value }: Message, response: ResponseCallb
         const result = await supabase.auth.signUp(value)
         response({ message: 'Successfully signed up!', data: result });
     } else if (action === 'signin') {
-        console.log('requesting auth');
         const { data, error } = await supabase.auth.signInWithPassword(value);
         console.log(data)
         response({ data, error });
     } else if (action === 'getSession') {
         try {
+            console.log('session fetched')
             const sessionData = await supabase.auth.getSession();
             // Process sessionData as needed
             response({ data: sessionData });
