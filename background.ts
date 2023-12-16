@@ -23,8 +23,8 @@ async function handleMessage({ action, value }: Message, response: ResponseCallb
         response({ data, error });
     } else if (action === 'getSession') {
         try {
-            console.log('session fetched')
             const sessionData = await supabase.auth.getSession();
+            console.log(sessionData)
             // Process sessionData as needed
             response({ data: sessionData });
         } catch (error) {
