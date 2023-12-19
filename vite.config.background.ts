@@ -9,7 +9,7 @@ export default defineConfig({
     lib: {
       formats: ['iife'],
       entry: resolve(__dirname, './background.ts'),
-      name: 'Threadnote',
+      name: 'Background',
     },
     rollupOptions: {
       output: {

@@ -12,7 +12,8 @@
     }
   ],
   "permissions": [
-    "storage"
+    "storage", 
+    "activeTab"
   ],
   "background": {
     "service_worker": "./background.global.js"

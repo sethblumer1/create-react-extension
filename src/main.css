@@ -1,0 +1,75 @@
+.job-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .job-header {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .job-title {
+    font-size: 1.5em;
+    margin: 0;
+    color: #333;
+  }
+  
+  .company-name {
+    font-size: 1.2em;
+    margin: 0;
+    color: #666;
+  }
+  
+  .people-container h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .people-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .people-list li {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .profile-card {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .profile-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  .profile-info {
+    flex-grow: 1;
+  }
+  
+  .profile-name {
+    margin: 0;
+    font-size: 1.2em;
+  }
+  
+  .profile-occupation, .profile-location {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: #666;
+  }
+  

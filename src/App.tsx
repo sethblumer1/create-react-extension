@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SignInForm from './components/SignIn';
+import Main from './components/Main';
 
 interface AppProps {
   open: boolean;
@@ -7,8 +8,13 @@ interface AppProps {
 }
 
 interface SessionResponse {
-  data: any; // Replace 'any' with a more specific type if you know the structure of your session data
+  data: any;
   error?: string;
+}
+
+interface ExtensionData {
+  type: string;
+  data: any;
 }
 
 const App = ({ open, setOpen }: AppProps) => {
@@ -18,6 +24,8 @@ const App = ({ open, setOpen }: AppProps) => {
   };
 
   const [session, setSession] = useState(null);
+
+  const [receivedData, setReceivedData] = useState<any>(null);
 
   const getSession = async () => {
     try {
@@ -54,12 +62,36 @@ const App = ({ open, setOpen }: AppProps) => {
     getSession();
   };
 
+  // Get session on load
   useEffect(() => {
-    // chrome.runtime.sendMessage({ action: 'getSession' })
     getSession();
   }, []);
 
-  useEffect(() => {}, [session]);
+  // Rerender once session changes
+  useEffect(() => { }, [session]);
+
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      // Only accept messages from the current window
+      if (event.source !== window) return;
+
+      const messageData = event.data as ExtensionData;
+      if (messageData.type === "FROM_EXTENSION") {
+        console.log("Data received from extension:", messageData.data);
+        // Update state with the received data
+        setReceivedData(messageData.data);
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+
+    // Clean up
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, []);
+
+
 
   if (!open) {
     return (
@@ -76,12 +108,12 @@ const App = ({ open, setOpen }: AppProps) => {
         }}
         onClick={toggleOpen}
       >
-        {/* <img
+        <img
           src='https://i.ibb.co/5cmhvWw/airplane-icon.png'
           alt='logo'
           height={"40px"}
-        /> */}
-        Threadnote
+        />
+        {/* Threadnote */}
       </button>
     );
   }
@@ -90,7 +122,7 @@ const App = ({ open, setOpen }: AppProps) => {
     <>
       {session ? (
         <>
-          Signed in{' '}
+          {receivedData && <Main jobTitle={receivedData.title} companyName={receivedData.company} companyUrl={receivedData.companyUrl} />}
           <button
             type="button"
             onClick={() => {

@@ -19,14 +19,22 @@ async function handleMessage({ action, value }: Message, response: ResponseCallb
         response({ message: 'Successfully signed up!', data: result });
     } else if (action === 'signin') {
         const { data, error } = await supabase.auth.signInWithPassword(value);
-        console.log(data)
+        if (data) {
+            // Store session data
+            chrome.storage.local.set({ 'sessionData': data });
+        }
         response({ data, error });
     } else if (action === 'getSession') {
         try {
-            const sessionData = await supabase.auth.getSession();
-            console.log(sessionData)
-            // Process sessionData as needed
-            response({ data: sessionData });
+            // const sessionData = await supabase.auth.getSession();
+            // response({ data: sessionData });
+            chrome.storage.local.get('sessionData', (result) => {
+                if (result.sessionData) {
+                    response({ data: result.sessionData });
+                } else {
+                    response({ error: 'No session data found' });
+                }
+            });
         } catch (error) {
             // Handle any errors
             response({ error: error.message });
