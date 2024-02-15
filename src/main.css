@@ -1,9 +1,20 @@
-.job-container {
+/* Add some styles for a wrapper div, should be similar to job-container */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 20px;
+    padding: 10px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.job-container {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    padding: 20px;
   }
   
   .job-header {
@@ -13,13 +24,13 @@
   }
   
   .job-title {
-    font-size: 1.5em;
+    font-size: 1.25em;
     margin: 0;
     color: #333;
   }
   
   .company-name {
-    font-size: 1.2em;
+    font-size: 1em;
     margin: 0;
     color: #666;
   }
@@ -73,3 +84,44 @@
     color: #666;
   }
   
+/* Add some styles for the save-button */
+.save-button {
+    display: flex;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    height: min-content;
+  }
+  
+.save-button:hover {
+  background-color: #45a049;
+}
+
+/* Add some styles for the find-people-button */
+.find-people-button {
+    display: flex;
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    height: min-content;
+  }
+
+.find-people-button:hover {
+  background-color: #007A99;
+}

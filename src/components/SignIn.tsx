@@ -1,10 +1,12 @@
 import { useState, FormEvent } from 'react';
 import '../App.css';
 import { Dispatch, SetStateAction } from 'react';
+import { Session } from '../App';
+
 interface SignInFormProps {
   open: boolean;
   setOpen: (open: boolean) => void;
-  setSession: Dispatch<SetStateAction<null>>;
+  setSession: React.Dispatch<React.SetStateAction<Session | null>>;
 }
 
 const SignInForm = ({ open, setOpen, setSession }: SignInFormProps) => {

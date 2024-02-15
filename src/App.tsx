@@ -17,13 +17,65 @@ interface ExtensionData {
   data: any;
 }
 
+interface UserMetadata {
+  name: string;
+}
+
+interface IdentityData {
+  email: string;
+  email_verified: boolean;
+  phone_verified: boolean;
+  sub: string;
+}
+
+interface Identity {
+  created_at: string;
+  email: string;
+  id: string;
+  identity_data: IdentityData;
+  identity_id: string;
+  last_sign_in_at: string;
+  provider: string;
+  updated_at: string;
+  user_id: string;
+}
+
+interface User {
+  app_metadata: {
+    provider: string;
+    providers: string[];
+  };
+  aud: string;
+  confirmed_at: string;
+  created_at: string;
+  email: string;
+  email_confirmed_at: string;
+  id: string;
+  identities: Identity[];
+  last_sign_in_at: string;
+  phone: string;
+  recovery_sent_at: string;
+  role: string;
+  updated_at: string;
+  user_metadata: UserMetadata;
+}
+
+export interface Session {
+  access_token: string;
+  expires_at: number;
+  expires_in: number;
+  refresh_token: string;
+  token_type: string;
+  user: User;
+}
+
 const App = ({ open, setOpen }: AppProps) => {
   const toggleOpen = () => {
     // getSession();
     setOpen(!open);
   };
 
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState<Session | null>(null);
 
   const [receivedData, setReceivedData] = useState<any>(null);
 
@@ -47,6 +99,7 @@ const App = ({ open, setOpen }: AppProps) => {
         });
       });
 
+      // console.log(response.data.session);
       setSession(response.data.session);
     } catch (error) {
       console.error('Error in getting session:', error);
@@ -68,7 +121,7 @@ const App = ({ open, setOpen }: AppProps) => {
   }, []);
 
   // Rerender once session changes
-  useEffect(() => { }, [session]);
+  useEffect(() => {}, [session]);
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
@@ -76,22 +129,20 @@ const App = ({ open, setOpen }: AppProps) => {
       if (event.source !== window) return;
 
       const messageData = event.data as ExtensionData;
-      if (messageData.type === "FROM_EXTENSION") {
-        console.log("Data received from extension:", messageData.data);
+      if (messageData.type === 'FROM_EXTENSION') {
+        console.log('Data received from extension:', messageData.data);
         // Update state with the received data
         setReceivedData(messageData.data);
       }
     };
 
-    window.addEventListener("message", handleMessage);
+    window.addEventListener('message', handleMessage);
 
     // Clean up
     return () => {
-      window.removeEventListener("message", handleMessage);
+      window.removeEventListener('message', handleMessage);
     };
   }, []);
-
-
 
   if (!open) {
     return (
@@ -109,9 +160,9 @@ const App = ({ open, setOpen }: AppProps) => {
         onClick={toggleOpen}
       >
         <img
-          src='https://i.ibb.co/5cmhvWw/airplane-icon.png'
-          alt='logo'
-          height={"40px"}
+          src="https://i.ibb.co/5cmhvWw/airplane-icon.png"
+          alt="logo"
+          height={'40px'}
         />
         {/* Threadnote */}
       </button>
@@ -122,7 +173,15 @@ const App = ({ open, setOpen }: AppProps) => {
     <>
       {session ? (
         <>
-          {receivedData && <Main jobTitle={receivedData.title} companyName={receivedData.company} companyUrl={receivedData.companyUrl} />}
+          {receivedData && (
+            <Main
+              jobTitle={receivedData.title}
+              companyName={receivedData.company}
+              companyUrl={receivedData.companyUrl}
+              userId={session.user.id}
+              accessToken={session.access_token}
+            />
+          )}
           <button
             type="button"
             onClick={() => {
