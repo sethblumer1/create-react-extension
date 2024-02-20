@@ -1,41 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../main.css';
 
-interface ProfileObject {
-    profile_url: string;
-    profile: {
-        public_identifier: string;
-        profile_pic_url: string;
-        full_name: string;
-        occupation: string;
-        city: string;
-        state: string;
-    };
-}
-
-interface Person {
-    profileUrl: string;
-    publicIdentifier: string;
-    profilePicUrl: string;
-    fullName: string;
-    occupation: string;
-    city: string;
-    state: string;
-}
-
-interface ProfileCardProps {
-    person: Person;
-}
-
-interface Job {
-    id?: number;
-    position: string;
-    company_id: string;
-    user_id: string;
-    job_status?: string;
-}
-
-interface MainProps {
+type MainProps = {
     jobTitle: string;
     companyName: string;
     companyUrl: string;
@@ -43,29 +9,59 @@ interface MainProps {
     accessToken: string;
 }
 
-const extractProfileData = (profiles: ProfileObject[]): Person[] =>
-    profiles.map((profile) => ({
-        profileUrl: profile.profile_url,
-        publicIdentifier: profile.profile?.public_identifier,
-        profilePicUrl: profile.profile?.profile_pic_url,
-        fullName: profile.profile?.full_name,
-        occupation: profile.profile?.occupation,
-        city: profile.profile?.city,
-        state: profile.profile?.state,
-    }));
+type Teaser = {
+    emails?: string[];
+    phones?: {
+        number: string;
+        is_premium: boolean;
+    }[];
+    preview?: any[];
+    is_premium_phone_available?: boolean;
+    personal_emails?: string[];
+    professional_emails?: string[];
+};
+
+type Person = {
+    id?: number;
+    status?: string;
+    name?: string;
+    profile_pic?: string;
+    links?: null;
+    linkedin_url?: string;
+    location?: string;
+    city?: string;
+    region?: string;
+    country?: string;
+    country_code?: string;
+    current_title?: string;
+    current_employer?: string;
+    current_employer_domain?: string;
+    current_employer_website?: string;
+    teaser?: Teaser;
+    birth_year?: number;
+    current_employer_id?: number;
+    current_employer_linkedin_url?: string;
+    region_latitude?: number;
+    region_longitude?: number;
+    suppressed?: boolean;
+};
+
+type ProfileCardProps = {
+    person: Person;
+};
 
 const ProfileCard = ({ person }: ProfileCardProps) => {
     return (
         <div className="profile-card">
             <img
-                src={person.profilePicUrl}
-                alt={person.fullName}
+                src={person.profile_pic}
+                alt={person.name}
                 className="profile-pic"
             />
             <div className="profile-info">
-                <h4 className="profile-name">{person.fullName}</h4>
-                <p className="profile-occupation">{person.occupation}</p>
-                <p className="profile-location">{`${person.city}, ${person.state}`}</p>
+                <h4 className="profile-name">{person.name}</h4>
+                <p className="profile-occupation">{person.current_title}</p>
+                <p className="profile-location">{`${person.city}, ${person.region}`}</p>
             </div>
         </div>
     );
@@ -108,18 +104,22 @@ const Main = ({
     // Fetch people based on job
     const fetchPeople = async () => {
         setLoading(true);
+        const query = { "keyword": [companyName] }
         const response = await fetch(
             `${import.meta.env.VITE_SUPABASE_URL
-            }/functions/v1/company-employees?url=${companyUrl}&role_search=${jobTitle}`,
+            }/functions/v1/rreach-employees`,
             {
+                method: 'POST',
                 headers: {
+                    'Content-Type': 'application/json',
                     Authorization: `Bearer ${accessToken}`,
                 },
+                body: JSON.stringify(query)
             }
         );
         const data = await response.json();
         console.log(data);
-        setPeople(extractProfileData(data.employees));
+        setPeople(data.profiles);
         setLoading(false);
     };
 
@@ -140,6 +140,14 @@ const Main = ({
             <div className="people-container">
                 <div className="find-people-button" onClick={fetchPeople}>
                     Find People
+                </div>
+                <div className="people-container">
+                    {/* <h3>Reach out to:</h3> */}
+                    <div className="profile-list">
+                        {loading ? <p>Loading...</p> : people.map(person => (
+                            <ProfileCard key={person.id} person={person} />
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

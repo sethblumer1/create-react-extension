@@ -19,7 +19,7 @@ const Main = () => {
           top: '15%',
           right: open ? '0px' : '-20px',
           maxWidth: open ? '100%' : '82.5px',
-          minHeight: open ? '800px' : 'max-content',
+          height: open ? '100%' : '100px',
           border: 'none',
           padding: '10px',
           zIndex: 999,
