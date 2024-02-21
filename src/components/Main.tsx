@@ -1,50 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Teaser, Person } from '../types/rocketReachTypes';
+import { LinkedInJob } from '../types/Jobs';
 import '../main.css';
-
-type MainProps = {
-    jobTitle: string;
-    companyName: string;
-    companyUrl: string;
-    userId: string;
-    accessToken: string;
-}
-
-type Teaser = {
-    emails?: string[];
-    phones?: {
-        number: string;
-        is_premium: boolean;
-    }[];
-    preview?: any[];
-    is_premium_phone_available?: boolean;
-    personal_emails?: string[];
-    professional_emails?: string[];
-};
-
-type Person = {
-    id?: number;
-    status?: string;
-    name?: string;
-    profile_pic?: string;
-    links?: null;
-    linkedin_url?: string;
-    location?: string;
-    city?: string;
-    region?: string;
-    country?: string;
-    country_code?: string;
-    current_title?: string;
-    current_employer?: string;
-    current_employer_domain?: string;
-    current_employer_website?: string;
-    teaser?: Teaser;
-    birth_year?: number;
-    current_employer_id?: number;
-    current_employer_linkedin_url?: string;
-    region_latitude?: number;
-    region_longitude?: number;
-    suppressed?: boolean;
-};
 
 type ProfileCardProps = {
     person: Person;
@@ -91,15 +48,20 @@ const sendJob = async (
     return response.json();
 };
 
+type MainProps = {
+    linkedInJob: LinkedInJob;
+    userId: string;
+    accessToken: string;
+}
+
 const Main = ({
-    jobTitle,
-    companyName,
-    companyUrl,
+    linkedInJob,
     userId,
     accessToken,
 }: MainProps) => {
     const [loading, setLoading] = useState(false);
     const [people, setPeople] = useState<Person[]>([]);
+    const { jobTitle, companyName, companyUrl } = linkedInJob;
 
     // Fetch people based on job
     const fetchPeople = async () => {
@@ -122,6 +84,11 @@ const Main = ({
         setPeople(data.profiles);
         setLoading(false);
     };
+
+    // Reset people
+    useEffect(() => {
+        setPeople([]);
+    }, [linkedInJob])
 
     return (
         <div className="wrapper">

@@ -16,22 +16,25 @@
     align-items: center;
     border-radius: 8px;
     padding: 20px;
-  }
-  
-  .job-header {
     border-bottom: 1px solid #eee;
-    padding-bottom: 15px;
+    /* padding-bottom: 15px; */
     margin-bottom: 15px;
   }
   
+  /* .job-header {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+  } */
+  
   .job-title {
-    font-size: 1.25em;
+    font-size: 1em;
     margin: 0;
     color: #333;
   }
   
   .company-name {
-    font-size: 1em;
+    font-size: 0.8em;
     margin: 0;
     color: #666;
   }

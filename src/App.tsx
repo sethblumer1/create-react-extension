@@ -121,7 +121,7 @@ const App = ({ open, setOpen }: AppProps) => {
   }, []);
 
   // Rerender once session changes
-  useEffect(() => {}, [session]);
+  useEffect(() => { }, [session]);
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
@@ -175,9 +175,7 @@ const App = ({ open, setOpen }: AppProps) => {
         <>
           {receivedData && (
             <Main
-              jobTitle={receivedData.title}
-              companyName={receivedData.company}
-              companyUrl={receivedData.companyUrl}
+              linkedInJob={receivedData}
               userId={session.user.id}
               accessToken={session.access_token}
             />

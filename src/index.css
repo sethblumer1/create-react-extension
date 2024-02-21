@@ -10,6 +10,7 @@ body {
 
 .frame-content {
   height: 70vh;
+  width: 380px;
 }
 
 code {
