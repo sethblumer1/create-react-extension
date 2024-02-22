@@ -4,41 +4,53 @@
     flex-direction: column;
     align-items: center;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
+    /* border-radius: 8px; */
+    padding: 0px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     height: 100%;
 }
 
 .job-container {
+    width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    border-radius: 8px;
-    padding: 20px;
+    /* border-radius: 8px; */
+    padding-top: 20px;
+    padding-bottom: 20px;
     border-bottom: 1px solid #eee;
-    /* padding-bottom: 15px; */
     margin-bottom: 15px;
   }
   
-  /* .job-header {
-    border-bottom: 1px solid #eee;
-    padding-bottom: 15px;
+  .job-header {
+    /* border-bottom: 1px solid #eee;
+    padding-bottom: 15px; */
+    width: 75%;
     margin-bottom: 15px;
-  } */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   
   .job-title {
-    font-size: 1em;
+    font-size: 1.1em;
     margin: 0;
     color: #333;
   }
   
   .company-name {
-    font-size: 0.8em;
+    font-size: 1em;
     margin: 0;
     color: #666;
   }
   
+.button-container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+
   .people-container h3 {
     margin-top: 20px;
     margin-bottom: 10px;
@@ -66,8 +78,8 @@
   }
   
   .profile-pic {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     border-radius: 30px;
     object-fit: cover;
     margin-right: 10px;
@@ -79,7 +91,7 @@
   
   .profile-name {
     margin: 0;
-    font-size: 1.2em;
+    font-size: 1em;
   }
   
   .profile-occupation, .profile-location {
@@ -87,10 +99,29 @@
     font-size: 0.9em;
     color: #666;
   }
+
+  .profile-action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Adjust width as needed */
+    margin-top: 10px;
+    padding: 5px 10px;
+    font-size: 14px; /* Adjust font size as needed */
+    border: none;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+}
+
+.profile-action-button svg {
+    /* margin-right: 5px; */
+}
   
 /* Add some styles for the save-button */
 .save-button {
-    display: flex;
+    width: 25%;
     background-color: #4CAF50;
     border: none;
     color: white;
@@ -101,7 +132,7 @@
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 20px;
     height: min-content;
   }
   
@@ -109,22 +140,21 @@
   background-color: #45a049;
 }
 
-/* Add some styles for the find-people-button */
 .find-people-button {
-    display: flex;
-    background-color: #008CBA;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 8px;
-    height: min-content;
-  }
+  width: 25%;
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 20px;
+  height: min-content;
+}
 
 .find-people-button:hover {
   background-color: #007A99;

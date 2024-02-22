@@ -18,10 +18,10 @@ const Main = () => {
           position: 'fixed',
           top: '15%',
           right: open ? '0px' : '-20px',
-          maxWidth: open ? '100%' : '82.5px',
+          width: open ? '380px' : '82.5px',
           height: open ? '100%' : '100px',
           border: 'none',
-          padding: '10px',
+          // padding: '10px',
           zIndex: 999,
         }}
         scrolling="no"
