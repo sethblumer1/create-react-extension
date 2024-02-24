@@ -8,7 +8,7 @@
       "matches": ["<all_urls>"],
       "js": ["/assets/js/initializeUI.js"],
       "run_at": "document_end",
-      "all_frames": true
+      "all_frames": false
     }
   ],
   "permissions": [

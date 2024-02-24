@@ -121,7 +121,7 @@ const App = ({ open, setOpen }: AppProps) => {
   }, []);
 
   // Rerender once session changes
-  useEffect(() => { }, [session]);
+  useEffect(() => {}, [session]);
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
@@ -173,13 +173,13 @@ const App = ({ open, setOpen }: AppProps) => {
     <>
       {session ? (
         <>
-          {receivedData && (
-            <Main
-              linkedInJob={receivedData}
-              userId={session.user.id}
-              accessToken={session.access_token}
-            />
-          )}
+          {/* If user is on LinkedIn jobs page for now */}
+          <Main
+            linkedInJob={receivedData}
+            userId={session.user.id}
+            accessToken={session.access_token}
+          />
+
           <button
             type="button"
             onClick={() => {
